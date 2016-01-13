@@ -1,3 +1,12 @@
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
 	url = git@github.com:tpope/vim-fugitive.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = git@github.com:bling/vim-airline.git
+[submodule "bundle/vim-airlineish"]
+	path = bundle/vim-airlineish
+	url = git@github.com:paranoida/vim-airlineish.git
+[submodule "bundle/vim-ps1"]
+	path = bundle/vim-ps1
+	url = git@github.com:PProvost/vim-ps1.git

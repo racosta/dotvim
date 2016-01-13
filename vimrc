@@ -2,6 +2,8 @@ if v:progname =~? "evim"
   finish
 endif
 
+set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
+
 execute pathogen#infect()
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#helptags()

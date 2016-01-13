@@ -10,8 +10,6 @@
 "     for MS-DOS and Win32: $VIM\_vimrc
 "     for OpenVMS:          sys$login:.vimrc
 
-set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
-
 execute pathogen#infect()
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#helptags()
@@ -19,6 +17,8 @@ execute pathogen#infect()
 if v:progname =~? "evim"
   finish
 endif
+
+let g:is_win = has('win32') || has('win64')
 
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.

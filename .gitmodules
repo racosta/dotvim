@@ -10,3 +10,6 @@
 [submodule "bundle/vim-ps1"]
 	path = bundle/vim-ps1
 	url = git@github.com:PProvost/vim-ps1.git
+[submodule "bundle/vim-nerdtree-tabs"]
+	path = bundle/vim-nerdtree-tabs
+	url = git@github.com:jistr/vim-nerdtree-tabs.git

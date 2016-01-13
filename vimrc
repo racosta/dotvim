@@ -1,6 +1,14 @@
-if v:progname =~? "evim"
-  finish
-endif
+" Ryan Acosta's vimrc file.
+"
+" Author:      Bram Moolenaar <Bram@vim.org>
+" Editor:      Ryan Acosta
+" Last change: 2016 January
+"
+" To use it, copy it to
+"     for Unix and OS/2: ~/.vimrc
+"         for Amiga:  s:.vimrc
+"     for MS-DOS and Win32: $VIM\_vimrc
+"     for OpenVMS:          sys$login:.vimrc
 
 set runtimepath=~/.vim,$VIMRUNTIME,~/.vim/after
 
@@ -8,13 +16,17 @@ execute pathogen#infect()
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#helptags()
 
-" Use Vim settings, rather than Vi settings (much better!)
+if v:progname =~? "evim"
+  finish
+endif
+
+" Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-set autochdir         " Automatically change to current file's directory
+"set autochdir         " Automatically change to current file's directory
 set nobackup          " Don't create vim backup files everywhere
 set history=50        " Keep 50 lines of command line history
 set ruler             " Show the curson position all the time
@@ -39,7 +51,11 @@ set cursorline        " Highlight the line the cursor is on
 set visualbell
 set ttyfast
 set modeline
+set nowrap            " Don't wrap long lines
 syntax enable
+
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+" let &guioptions = substitute(&guioptions, "t", "", "g")
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -51,6 +67,10 @@ inoremap <C-U> <C-G>u<C-U>
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
+
+  if &term =~ '^sun-color'
+      set ttymouse=xterm2
+  endif
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -62,18 +82,20 @@ endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
+
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
   " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
+  "filetype plugin indent on
+  filetype plugin on
   set smartindent
 
-  " Put these in an autocmd group, so that we can delete them easily
+  " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
   au!
 
-  " For all text files set 'textwidth' to 78 characters
+  " For all text files set 'textwidth' to 78 characters.
   autocmd FileType text setlocal textwidth=78
 
   " When editing a file, always jump to the last known cursor position.
@@ -86,6 +108,7 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif
   augroup END
+
 else
   set smartindent " always set autoindenting on
 endif " has("autocmd")
@@ -98,9 +121,12 @@ if !exists(":DiffOrig")
           \ | wincmd p | diffthis
 endif
 
+au BufNewFile,BufRead *.C setlocal ft=cpp
+au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
+
 autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
 autocmd FileType perl   set tabstop=4|set shiftwidth=4|set expandtab
-autocmd FileType cpp    set tabstop=4|set shiftwidth=4|set expandtab
+autocmd FileType cpp    set tabstop=3|set shiftwidth=3|set expandtab
 autocmd FileType ruby   set tabstop=2|set shiftwidth=2|set expandtab
 
 " Commenting blocks of code.
@@ -110,7 +136,7 @@ autocmd FileType conf,fstab          let b:comment_leader = '# '
 autocmd FileType tcsh,csh            let b:comment_leader = '# '
 autocmd FileType tex                 let b:comment_leader = '% '
 autocmd FileType mail                let b:comment_leader = '> '
-autocmd FileType vim                 let b:commend_leader = '" '
+autocmd FileType vim                 let b:comment_leader = '" '
 noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
@@ -122,6 +148,9 @@ noremap <C-H> <C-w>h
 noremap <C-L> <C-w>l
 noremap <C-J> <C-w>j
 noremap <C-K> <C-w>k
+
+" set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ " [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+" set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ " %{strftime(\"%c\",getftime(expand(\"%:p\")))}%=\ lin:%l\,%L\ col:%c%V\ " pos:%o\ ascii:%b\ %P
 
 map <Leader>t :TlistToggle<CR><CR>
 
@@ -146,14 +175,21 @@ autocmd BufWritePost *
 " DEFAULT COLORSCHEME: In case I can't get Solarized to work properly
 " Set colorscheme, and change the line numbers to be dark grey
 colo delek
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+"highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
 imap jj <Esc>
-map <leader>e :e! ~/.vimrc<CR>
+map <leader>e :e! ~/.vim/vimrc<CR>
 
 map <F2> : call SetDarkSolarized() <CR>
 map <F3> : call SetLightSolarized() <CR>
 map <F4> :TlistToggle<CR><CR>
+
+" quickfix window
+nnoremap <Leader>q :copen<CR>
+nnoremap <Leader>Q :cclose<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprevious<CR>
+:botright cwindow " make the quickfix window take up the entire width of screen
 
 func! SetDarkSolarized()
     :set t_Co=256
@@ -184,13 +220,25 @@ func! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunc
 
-" When vimrc is edited, reload it
-autocmd! bufwritepost vimrc source ~/.vimrc
+if &term =~ "xterm"
+    if has("terminfo")
+    else
+    endif
+endif
 
-: call SetDarkSolarized()
+" When vimrc is edited, reload it
+autocmd! bufwritepost vimrc source ~/.vim/vimrc
+
+if $PUTTYTERM == 'DARK'
+    : call SetDarkSolarized()
+elseif $PUTTYTERM == 'LIGHT'
+    : call SetLightSolarized()
+else
+    : call SetDarkSolarized()
+endif
 
 if version >= 702
-    au VimResized * wincmd = " Doesn't work for linux version 6.2.98
+    au VimResized * wincmd = " Doesn't work for Linux version 6.2.98
 
     autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
@@ -209,6 +257,7 @@ if version >= 702
     autocmd FileType python,perl set colorcolumn=80|set nu|set numberwidth=5
     autocmd FileType ruby,tex    set colorcolumn=80|set nu|set numberwidth=5
     autocmd FileType c,cpp,java,python,perl,ruby,tcsh,vim,bash,sh,make,tex autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+    autocmd FileType make,cmake  set nu|set numberwidth=5
 
     let perl_fold=1
     let g:xml_syntax_folding=1

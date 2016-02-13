@@ -23,6 +23,7 @@ let g:is_win = has('win32') || has('win64')
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+set hidden
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -228,7 +229,7 @@ if &term =~ "xterm"
 endif
 
 " When vimrc is edited, reload it
-autocmd! bufwritepost vimrc source ~/.vim/vimrc
+autocmd! BufWritePost .vimrc,_vimrc,vimrc source $MYVIMRC | AirlineRefresh
 
 if $PUTTYTERM == 'DARK'
     : call SetDarkSolarized()

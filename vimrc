@@ -271,6 +271,7 @@ if version >= 702
     let g:airline_powerline_fonts=1
     let g:airline_theme='airlineish'
     let g:airline#extensions#tabline#enabled = 1
+    let g:gitgutter_avoid_cmd_prompt_on_windows = 0
 
 " Replaced by vim-airline, vim-fugitive, vim-airlineish
 " Replaced by lightline

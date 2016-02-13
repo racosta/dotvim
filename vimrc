@@ -270,6 +270,7 @@ if version >= 702
 
     let g:airline_powerline_fonts=1
     let g:airline_theme='airlineish'
+    let g:airline#extensions#tabline#enabled = 1
 
 " Replaced by vim-airline, vim-fugitive, vim-airlineish
 " Replaced by lightline

@@ -279,6 +279,7 @@ if version >= 702
     let g:airline#extensions#tabline#enabled = 1
     let g:gitgutter_avoid_cmd_prompt_on_windows = 0
     let g:syntastic_always_populate_loc_list = 1
+    let g:ctrlp_map = '<c-p>'
 
 " Replaced by vim-airline, vim-fugitive, vim-airlineish
 " Replaced by lightline

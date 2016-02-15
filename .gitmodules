@@ -19,9 +19,6 @@
 [submodule "bundle/vim-gitgutter"]
 	path = bundle/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
-[submodule "bundle/vim-ctrlspace"]
-	path = bundle/vim-ctrlspace
-	url = https://github.com/szw/vim-ctrlspace.git
 [submodule "bundle/vim-misc"]
 	path = bundle/vim-misc
 	url = https://github.com/xolox/vim-misc.git

@@ -261,6 +261,11 @@ if version >= 702
     autocmd FileType c,cpp,java,python,perl,ruby,tcsh,vim,bash,sh,make,tex autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
     autocmd FileType make,cmake  set nu|set numberwidth=5
 
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+
     let perl_fold=1
     let g:xml_syntax_folding=1
     au FileType xml setlocal foldmethod=syntax
@@ -273,6 +278,7 @@ if version >= 702
     let g:airline_theme='airlineish'
     let g:airline#extensions#tabline#enabled = 1
     let g:gitgutter_avoid_cmd_prompt_on_windows = 0
+    let g:syntastic_always_populate_loc_list = 1
 
 " Replaced by vim-airline, vim-fugitive, vim-airlineish
 " Replaced by lightline

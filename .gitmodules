@@ -28,3 +28,9 @@
 [submodule "bundle/vim-shell"]
 	path = bundle/vim-shell
 	url = https://github.com/xolox/vim-shell.git
+[submodule "bundle/syntastic"]
+	path = bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/rainbow_parentheses"]
+	path = bundle/rainbow_parentheses
+	url = https://github.com/kien/rainbow_parentheses.vim.git

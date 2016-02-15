@@ -180,7 +180,7 @@ colo delek
 "highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 
 imap jj <Esc>
-map <leader>e :e! ~/.vim/vimrc<CR>
+map <leader>e :e! $MYVIMRC<CR>
 
 map <F2> : call SetDarkSolarized() <CR>
 map <F3> : call SetLightSolarized() <CR>

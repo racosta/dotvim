@@ -266,6 +266,8 @@ if version >= 702
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
 
+    map <leader>p :RainbowParenthesesToggle<CR>
+
     let perl_fold=1
     let g:xml_syntax_folding=1
     au FileType xml setlocal foldmethod=syntax

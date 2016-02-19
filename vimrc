@@ -261,6 +261,8 @@ if version >= 702
     autocmd FileType c,cpp,java,python,perl,ruby,tcsh,vim,bash,sh,make,tex autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
     autocmd FileType make,cmake  set nu|set numberwidth=5
 
+    autocmd User Startified setlocal buftype=
+
     au VimEnter * RainbowParenthesesToggle
     au Syntax * RainbowParenthesesLoadRound
     au Syntax * RainbowParenthesesLoadSquare
@@ -282,6 +284,20 @@ if version >= 702
     let g:gitgutter_avoid_cmd_prompt_on_windows = 0
     let g:syntastic_always_populate_loc_list = 1
     let g:ctrlp_map = '<c-p>'
+"    let g:startify_custom_header = [
+"            \ '                                 ________  __ __        ',
+"            \ '            __                  /\_____  \/\ \\ \       ',
+"            \ '    __  __ /\_\    ___ ___      \/___//''/''\ \ \\ \    ',
+"            \ '   /\ \/\ \\/\ \ /'' __` __`\        /'' /''  \ \ \\ \_ ',
+"            \ '   \ \ \_/ |\ \ \/\ \/\ \/\ \      /'' /''__  \ \__ ,__\',
+"            \ '    \ \___/  \ \_\ \_\ \_\ \_\    /\_/ /\_\  \/_/\_\_/  ',
+"            \ '     \/__/    \/_/\/_/\/_/\/_/    \//  \/_/     \/_/    ',
+"            \ '',
+"            \ '',
+"            \ ]
+"    let g:startify_custom_header = map(split(system('fortune'), '\n'), '"  ".  v:val') + ['','']
+
+    map <leader>s :SyntasticToggleMode<CR>
 
 " Replaced by vim-airline, vim-fugitive, vim-airlineish
 " Replaced by lightline

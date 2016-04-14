@@ -1,18 +1,18 @@
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
-	url = git@github.com:tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive.git
 [submodule "bundle/vim-airline"]
 	path = bundle/vim-airline
-	url = git@github.com:bling/vim-airline.git
+	url = https://github.com/bling/vim-airline.git
 [submodule "bundle/vim-airlineish"]
 	path = bundle/vim-airlineish
-	url = git@github.com:paranoida/vim-airlineish.git
+	url = https://github.com/paranoida/vim-airlineish.git
 [submodule "bundle/vim-ps1"]
 	path = bundle/vim-ps1
-	url = git@github.com:PProvost/vim-ps1.git
+	url = https://github.com/PProvost/vim-ps1.git
 [submodule "bundle/vim-nerdtree-tabs"]
 	path = bundle/vim-nerdtree-tabs
-	url = git@github.com:jistr/vim-nerdtree-tabs.git
+	url = https://github.com/jistr/vim-nerdtree-tabs.git
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar

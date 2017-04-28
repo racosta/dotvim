@@ -246,7 +246,9 @@ if version >= 702
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
     highlight EOLWS ctermbg=darkred guibg=darkred
 
-    nmap <silent> <C-D> :NERDTreeToggle<CR>
+    nmap <silent> <C-D> :NERDTreeTabsToggle<CR>
+
+    let g:nerdtree_tabs_open_on_gui_startup=0
 
     let Tlist_Inc_Winwidth      = 0      " Don't change window width
     let Tlist_Auto_Update       = 1      " Automatically add new tags to the list
@@ -260,6 +262,7 @@ if version >= 702
     autocmd FileType ruby,tex    set colorcolumn=80|set nu|set numberwidth=5
     autocmd FileType c,cpp,java,python,perl,ruby,tcsh,vim,bash,sh,make,tex autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
     autocmd FileType make,cmake  set nu|set numberwidth=5
+    autocmd Filetype dosbatch    set nu|set numberwidth=5
 
     autocmd User Startified setlocal buftype=
 

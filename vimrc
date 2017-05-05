@@ -128,16 +128,16 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
 autocmd FileType perl   set tabstop=4|set shiftwidth=4|set expandtab
 autocmd FileType cpp    set tabstop=3|set shiftwidth=3|set expandtab
-autocmd FileType ruby   set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType ruby,r set tabstop=2|set shiftwidth=2|set expandtab
 
 " Commenting blocks of code.
-autocmd FileType c,cpp,java          let b:comment_leader = '// '
-autocmd FileType sh,ruby,python,perl let b:comment_leader = '# '
-autocmd FileType conf,fstab          let b:comment_leader = '# '
-autocmd FileType tcsh,csh            let b:comment_leader = '# '
-autocmd FileType tex                 let b:comment_leader = '% '
-autocmd FileType mail                let b:comment_leader = '> '
-autocmd FileType vim                 let b:comment_leader = '" '
+autocmd FileType c,cpp,java            let b:comment_leader = '// '
+autocmd FileType sh,ruby,python,perl,r let b:comment_leader = '# '
+autocmd FileType conf,fstab            let b:comment_leader = '# '
+autocmd FileType tcsh,csh              let b:comment_leader = '# '
+autocmd FileType tex                   let b:comment_leader = '% '
+autocmd FileType mail                  let b:comment_leader = '> '
+autocmd FileType vim                   let b:comment_leader = '" '
 noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
@@ -184,7 +184,8 @@ map <leader>e :e! $MYVIMRC<CR>
 
 map <F2> : call SetDarkSolarized() <CR>
 map <F3> : call SetLightSolarized() <CR>
-map <F4> :TlistToggle<CR><CR>
+map <F4> :set invpaste paste? <CR>
+nnoremap <F5> :buffers<CR>:buffer<Space>
 
 " quickfix window
 nnoremap <Leader>q :copen<CR>
@@ -246,6 +247,10 @@ if version >= 702
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
     highlight EOLWS ctermbg=darkred guibg=darkred
 
+    set wildchar=<Tab> wildmenu wildmode=full
+    set wildcharm=<C-Z>
+    nnoremap <F10> :b <C-Z>
+
     nmap <silent> <C-D> :NERDTreeTabsToggle<CR>
 
     let g:nerdtree_tabs_open_on_gui_startup=0
@@ -259,8 +264,8 @@ if version >= 702
 
     autocmd FileType c,cpp,java  set colorcolumn=80|set nu|set numberwidth=5
     autocmd FileType python,perl set colorcolumn=80|set nu|set numberwidth=5
-    autocmd FileType ruby,tex    set colorcolumn=80|set nu|set numberwidth=5
-    autocmd FileType c,cpp,java,python,perl,ruby,tcsh,vim,bash,sh,make,tex autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+    autocmd FileType ruby,tex,r  set colorcolumn=80|set nu|set numberwidth=5
+    autocmd FileType c,cpp,java,python,perl,ruby,tcsh,vim,bash,sh,make,tex,r autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
     autocmd FileType make,cmake  set nu|set numberwidth=5
     autocmd Filetype dosbatch    set nu|set numberwidth=5
 

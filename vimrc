@@ -262,12 +262,12 @@ if version >= 702
     let Tlist_Sort_Type         = "name" " Sort by tag name instead of order
     let Tlist_Display_Tag_Scope = 1
 
-    autocmd FileType c,cpp,java  set colorcolumn=80|set nu|set numberwidth=5
-    autocmd FileType python,perl set colorcolumn=80|set nu|set numberwidth=5
-    autocmd FileType ruby,tex,r  set colorcolumn=80|set nu|set numberwidth=5
+    autocmd FileType c,cpp,java   set colorcolumn=80|set nu|set numberwidth=5
+    autocmd FileType python,perl  set colorcolumn=80|set nu|set numberwidth=5
+    autocmd FileType ruby,tex,r   set colorcolumn=80|set nu|set numberwidth=5
     autocmd FileType c,cpp,java,python,perl,ruby,tcsh,vim,bash,sh,make,tex,r autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-    autocmd FileType make,cmake  set nu|set numberwidth=5
-    autocmd Filetype dosbatch    set nu|set numberwidth=5
+    autocmd FileType make,cmake   set nu|set numberwidth=5
+    autocmd Filetype dosbatch,xml set nu|set numberwidth=5
 
     autocmd User Startified setlocal buftype=
 

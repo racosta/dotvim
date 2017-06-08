@@ -128,6 +128,7 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
 autocmd FileType perl   set tabstop=4|set shiftwidth=4|set expandtab
 autocmd FileType cpp    set tabstop=3|set shiftwidth=3|set expandtab
+autocmd FileType java   set tabstop=3|set shiftwidth=3|set expandtab
 autocmd FileType ruby,r set tabstop=2|set shiftwidth=2|set expandtab
 
 " Commenting blocks of code.
@@ -267,7 +268,7 @@ if version >= 702
     autocmd FileType ruby,tex,r   set colorcolumn=80|set nu|set numberwidth=5
     autocmd FileType c,cpp,java,python,perl,ruby,tcsh,vim,bash,sh,make,tex,r autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
     autocmd FileType make,cmake   set nu|set numberwidth=5
-    autocmd Filetype dosbatch,xml set nu|set numberwidth=5
+    autocmd Filetype dosbatch,xml,xsd set nu|set numberwidth=5
 
     autocmd User Startified setlocal buftype=
 

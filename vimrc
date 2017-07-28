@@ -10,6 +10,14 @@
 "     for MS-DOS and Win32: $VIM\_vimrc
 "     for OpenVMS:          sys$login:.vimrc
 
+set nocompatible
+
+let g:pathogen_disabled = []
+
+if !has("lua")
+    let g:pathogen_disabled += ['neocomplete']
+endif
+
 execute pathogen#infect()
 "call pathogen#runtime_append_all_bundles()
 "call pathogen#helptags()
@@ -22,7 +30,6 @@ let g:is_win = has('win32') || has('win64')
 
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
-set nocompatible
 set hidden
 
 " allow backspacing over everything in insert mode
@@ -253,6 +260,10 @@ if version >= 702
     nnoremap <F10> :b <C-Z>
 
     nmap <silent> <C-D> :NERDTreeTabsToggle<CR>
+
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
 
     let g:nerdtree_tabs_open_on_gui_startup=0
 

@@ -192,14 +192,12 @@ map <leader>e :e! $MYVIMRC<CR>
 
 map <F2> : call SetDarkSolarized() <CR>
 map <F3> : call SetLightSolarized() <CR>
-map <F4> :set invpaste paste? <CR>
+map <F4> : set invpaste paste? <CR>
 nnoremap <F5> :buffers<CR>:buffer<Space>
 
 " quickfix window
 nnoremap <Leader>q :copen<CR>
 nnoremap <Leader>Q :cclose<CR>
-nnoremap ]q :cnext<CR>
-nnoremap [q :cprevious<CR>
 :botright cwindow " make the quickfix window take up the entire width of screen
 
 func! SetDarkSolarized()
@@ -289,6 +287,7 @@ if version >= 702
     au Syntax * RainbowParenthesesLoadBraces
 
     map <leader>p :RainbowParenthesesToggle<CR>
+    nmap <leader>b :CtrlPBuffer<CR>
 
     let perl_fold=1
     let g:xml_syntax_folding=1
@@ -319,91 +318,76 @@ if version >= 702
 
     map <leader>s :SyntasticToggleMode<CR>
 
-" Replaced by vim-airline, vim-fugitive, vim-airlineish
-" Replaced by lightline
-"    hi StatusLine guifg=DarkBlue guibg=White ctermfg=DarkBlue ctermbg=White
-"
-"    hi StatColor guibg=#95e454 guifg=black ctermbg=darkgreen ctermfg=black
-"    hi Modified  guibg=orange  guifg=black ctermbg=darkred   ctermfg=black
-"
-"    function! MyStatusLine(mode)
-"      let statusline=""
-"      if a:mode == 'Enter'
-"        let statusline.="%#StatColor#"
-"      endif
-"      let statusline.="\(%n\)\ %f\ "
-"      if a:mode == 'Enter'
-"        let statusline.="%*"
-"      endif
-"      let statusline.="%#Modified#%m"
-"      if a:mode == 'Leave'
-"        let statusline.="%*%r"
-"      elseif a:mode == 'Enter'
-"        let statusline.="%r%*"
-"      endif
-"      let statusline.="\ (%l/%L,\ %c)\ %P%=%q%h%w\ %y\ [%{&encoding}:%{&fileformat}]\ \ "
-"      return statusline
-"    endfunction
-"
-"    au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
-"    au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
-"    set statusline=%!MyStatusLine('Enter')
-"
-"    function! InsertStatusLineColor(mode)
-"      if a:mode == 'i'
-"        hi StatColor guibg=orange ctermbg=darkred
-"      elseif a:mode == 'r'
-"        hi StatColor guibg=#e454ba ctermbg=darkmagenta
-"      elseif a:mode == 'v'
-"        hi StatColor guibg=#e454ba ctermbg=darkmagenta
-"      else
-"        hi StatColor guibg=red ctermbg=red
-"      endif
-"    endfunction
-"
-"    au InsertEnter * call InsertStatusLineColor(v:insertmode)
-"    au InsertLeave * hi StatColor guibg=#95e454 guifg=black ctermbg=darkgreen ctermfg=black
-
-" Old
-"hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
-"hi Modified guibg=orange guifg=black ctermbg=lightred ctermfg=black
-"
-"function! MyStatusLine(mode)
-"    let statusline=""
-"    if a:mode == 'Enter'
-"        let statusline.="%#StatColor#"
-"    endif
-"    let statusline.="\(%n\)\ %f\ "
-"    if a:mode == 'Enter'
-"        let statusline.="%*"
-"    endif
-"    let statusline.="%#Modified#%m"
-"    if a:mode == 'Leave'
-"        let statusline.="%*%r"
-"    elseif a:mode == 'Enter'
-"        let statusline.="%r%*"
-"    endif
-"    let statusline .= "\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]\ \ "
-"    return statusline
-"endfunction
-"
-"au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
-"au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
-"set statusline=%!MyStatusLine('Enter')
-"
-"function! InsertStatuslineColor(mode)
-"  if a:mode == 'i'
-"    hi StatColor guibg=orange ctermbg=lightred
-"  elseif a:mode == 'r'
-"    hi StatColor guibg=#e454ba ctermbg=magenta
-"  elseif a:mode == 'v'
-"    hi StatColor guibg=#e454ba ctermbg=magenta
-"  else
-"    hi StatColor guibg=red ctermbg=red
-"  endif
-"endfunction
-"
-"au InsertEnter * call InsertStatuslineColor(v:insertmode)
-"au InsertLeave * hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
-"au InsertLeave * hi Modified guibg=orange guifg=black ctermbg=lightred ctermfg=black
+    if exists(g:neocomplete#enable_at_startup)
+        call SetupNeocomplete()
+    endif
 endif
+
+function! SetupNeocomplete()
+    let g:neocomplete#enable_at_startup = 1
+    let g:neocomplete#enable_smart_case = 1
+    let g:neocomplete#sources#syntax#min_keyword_length = 3
+    let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+    " Define dictionary
+    let g:neocomplete#sources#dictionary#dictionaries = {
+        \ 'default' : '',
+        \ 'vimshell' : $HOME.'/.vimshell_hist',
+        \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+    " Define keyword
+    if !exists('g:neocomplete#keyword_patterns')
+        let g:neocomplete#keyword_patterns = {}
+    endif
+    let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+	" Plugin key-mappings.
+	inoremap <expr><C-g>     neocomplete#undo_completion()
+	inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+	" Recommended key-mappings.
+	" <CR>: close popup and save indent.
+	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+	function! s:my_cr_function()
+	return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+	" For no inserting <CR> key.
+	"return pumvisible() ? "\<C-y>" : "\<CR>"
+	endfunction
+	" <TAB>: completion.
+	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+	" <C-h>, <BS>: close popup and delete backword char.
+	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+	" Close popup by <Space>.
+	"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+	" AutoComplPop like behavior.
+	"let g:neocomplete#enable_auto_select = 1
+
+	" Shell like behavior(not recommended).
+	"set completeopt+=longest
+	"let g:neocomplete#enable_auto_select = 1
+	"let g:neocomplete#disable_auto_complete = 1
+	"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+	" Enable omni completion.
+	autocmd FileType css           setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+	autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+	autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
+	autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
+
+	" Enable heavy omni completion.
+	if !exists('g:neocomplete#sources#omni#input_patterns')
+	let g:neocomplete#sources#omni#input_patterns = {}
+	endif
+	"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+	"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+	"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+	" For perlomni.vim setting.
+	" https://github.com/c9s/perlomni.vim
+	let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+endfunction

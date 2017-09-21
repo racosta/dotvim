@@ -12,11 +12,15 @@
 
 set nocompatible
 
+set rtp+=~/.fzf
+
 let g:pathogen_disabled = []
 
 if !has("lua")
     let g:pathogen_disabled += ['neocomplete']
 endif
+
+let g:pathogen_disabled += ['syntastic']
 
 execute pathogen#infect()
 "call pathogen#runtime_append_all_bundles()

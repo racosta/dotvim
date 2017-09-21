@@ -10,7 +10,7 @@ if version >= 500
 
     if has("gui_running")
         if has("gui_win32")
-            set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h9
+            set guifont=DejaVuSansMono\ NF:h9
         endif
     endif
 endif

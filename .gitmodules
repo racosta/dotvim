@@ -73,3 +73,9 @@
 [submodule "bundle/vim-raml"]
 	path = bundle/vim-raml
 	url = https://github.com/IN3D/vim-raml.git
+[submodule "bundle/vim-json"]
+	path = bundle/vim-json
+	url = https://github.com/elzr/vim-json.git
+[submodule "bundle/vim-jdaddy"]
+	path = bundle/vim-jdaddy
+	url = https://github.com/tpope/vim-jdaddy.git

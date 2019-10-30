@@ -64,6 +64,7 @@ set visualbell
 set ttyfast
 set modeline
 set nowrap            " Don't wrap long lines
+set clipboard=unnamed
 syntax enable
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
@@ -247,8 +248,10 @@ if $PUTTYTERM == 'DARK'
 elseif $PUTTYTERM == 'LIGHT'
     : call SetLightSolarized()
 else
-    if $TERM == 'cygwin' && $SHELL == '/usr/bin/bash'
-        :set term=screen-256color
+    if $TERM == 'cygwin'
+        if $SHELL == '/usr/bin/bash'
+            :set term=screen-256color
+        endif
         :colo jellybeans
         :highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
     else
